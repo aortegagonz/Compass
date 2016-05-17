@@ -12,6 +12,7 @@ import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -31,11 +32,14 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
     public static final String  EXTRA_PREVIEW = "preview";
     public static final String  EXTRA_ACCELEROMETER = "accelerometer";
     public static final String  EXTRA_GYROSCOPE = "gyroscope";
+    public static final String  EXTRA_GLOBAL_REFERENCE = "global_reference";
 
     //private boolean isEmulator = "goldfish".equals(Build.HARDWARE);
     //private static float xDebug, yDebug, zDebug;
 
-    private boolean previewParam, accelerometerParam, gyroscopeParam;
+    private final float alpha = (float) 0.8;
+
+    private boolean previewParam, accelerometerParam, gyroscopeParam, globalReferenceParam;
     private String gridNameParam;
     private float samplingRateParam, timeParam;
 
@@ -53,6 +57,9 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
     private TextView currentRowLbl, currentColumnLbl;
     private long endTimestamp;
     private TextView timeLbl, samplesLbl;
+
+    private float gravity[] = new float[3];
+    private float magnetic[] = new float[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +83,7 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
         previewParam = extras.getBoolean(EXTRA_PREVIEW);
         accelerometerParam = extras.getBoolean(EXTRA_ACCELEROMETER);
         gyroscopeParam = extras.getBoolean(EXTRA_GYROSCOPE);
+        globalReferenceParam = extras.getBoolean(EXTRA_GLOBAL_REFERENCE);
 
         row = 1;
         column = 1;
@@ -126,7 +134,7 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
         super.onResume();
         int sensorDelay = Math.round(1000000/samplingRateParam);
         sensorManager.registerListener(this, magnetometerSensor, sensorDelay);
-        if (accelerometerParam) {
+        if (accelerometerParam  || globalReferenceParam) {
             sensorManager.registerListener(this, accelerometerSensor, sensorDelay);
         }
         if (gyroscopeParam) {
@@ -153,6 +161,29 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
         float y = sensorEvent.values[1];
         float z = sensorEvent.values[2];
         int sensorType = sensorEvent.sensor.getType();
+        float [] A_W = new float[3];
+
+        if (globalReferenceParam) {
+            if (sensorType == Sensor.TYPE_ACCELEROMETER) {
+                gravity[0] = alpha * gravity[0] + (1 - alpha) * x;
+                gravity[1] = alpha * gravity[1] + (1 - alpha) * y;
+                gravity[2] = alpha * gravity[2] + (1 - alpha) * z;
+
+            } else if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
+                magnetic[0] = x;
+                magnetic[1] = y;
+                magnetic[2] = z;
+
+                float[] R = new float[9];
+                float[] I = new float[9];
+                float [] A_D = sensorEvent.values.clone();
+                A_W[0] = R[0] * A_D[0] + R[1] * A_D[1] + R[2] * A_D[2];
+                A_W[1] = R[3] * A_D[0] + R[4] * A_D[1] + R[5] * A_D[2];
+                A_W[2] = R[6] * A_D[0] + R[7] * A_D[1] + R[8] * A_D[2];
+
+            }
+        }
+
 /*
         if (isEmulator) {
             xDebug++;
@@ -168,7 +199,11 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
 */
         if (previewParam || !recording) {
             if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
-                barChart.addSensorData(x, y, z);
+                if (globalReferenceParam) {
+                    barChart.addSensorData(A_W[0], A_W[1], A_W[2]);
+                } else {
+                    barChart.addSensorData(x, y, z);
+                }
             }
         }
 
@@ -184,6 +219,18 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
                     y,
                     z,
                     timestamp);
+            if (globalReferenceParam) {
+                dbHelper.insertGridData(
+                        gridId,
+                        100,
+                        row,
+                        column,
+                        A_W[0],
+                        A_W[1],
+                        A_W[2],
+                        timestamp);
+            }
+
             updateCount(timestamp - startTime);
 
             if(sensorType == Sensor.TYPE_MAGNETIC_FIELD) {

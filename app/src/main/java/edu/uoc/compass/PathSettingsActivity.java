@@ -34,7 +34,7 @@ public class PathSettingsActivity extends AppCompatActivity implements SeekBar.O
         previewCheck = (CheckBox) findViewById(R.id.path_preview);
         acceleratorCheck = (CheckBox) findViewById(R.id.path_record_accelerometer);
         gyroscopeCheck = (CheckBox) findViewById(R.id.path_record_gyroscope);
-        globalReferenceCheck = (CheckBox) findViewById(R.id.path_record_global_referencie);
+        globalReferenceCheck = (CheckBox) findViewById(R.id.path_record_global_reference);
         Button nextButton = (Button)findViewById(R.id.path_next_btn);
 
         pathNameEdt = (EditText)findViewById(R.id.path_name_edt);

@@ -25,7 +25,7 @@ public class GridSettingsActivity extends AppCompatActivity implements SeekBar.O
     private TextView freqTextView, timeTextView;
     private EditText gridNameEdt, gridRowsEdt, gridColumnsEdt;
     private SeekBar freqSeekBar, timeSeekBar;
-    private CheckBox previewCheck, acceleratorCheck, gyroscopeCheck;
+    private CheckBox previewCheck, acceleratorCheck, gyroscopeCheck, globalReferenceCheck;
     private DBHelper dbHelper;
 
     @Override
@@ -40,6 +40,7 @@ public class GridSettingsActivity extends AppCompatActivity implements SeekBar.O
         previewCheck = (CheckBox) findViewById(R.id.grid_preview);
         acceleratorCheck = (CheckBox) findViewById(R.id.grid_record_accelerometer);
         gyroscopeCheck = (CheckBox) findViewById(R.id.grid_record_gyroscope);
+        globalReferenceCheck = (CheckBox) findViewById(R.id.grid_record_global_reference);
         Button nextButton = (Button)findViewById(R.id.grid_next_btn);
         gridNameEdt = (EditText)findViewById(R.id.grid_name_edt);
         Util.disableCharacters(gridNameEdt, ",");
@@ -114,6 +115,7 @@ public class GridSettingsActivity extends AppCompatActivity implements SeekBar.O
             boolean previewParam = previewCheck.isChecked();
             boolean acceleratorParam = acceleratorCheck.isChecked();
             boolean gyroscopeParam = gyroscopeCheck.isChecked();
+            boolean globalReferenceParam = globalReferenceCheck.isChecked();
             int rows = getIntValue(gridRowsEdt);
             int columns = getIntValue(gridColumnsEdt);
             Intent intent = new Intent(this,GridRecordingActivity.class);
@@ -121,8 +123,9 @@ public class GridSettingsActivity extends AppCompatActivity implements SeekBar.O
             intent.putExtra(GridRecordingActivity.EXTRA_SAMPLING_RATE, samplingRateParam);
             intent.putExtra(GridRecordingActivity.EXTRA_TIME, timeParam);
             intent.putExtra(GridRecordingActivity.EXTRA_PREVIEW, previewParam);
-            intent.putExtra(PathRecordingActivity.EXTRA_ACCELEROMETER, acceleratorParam);
-            intent.putExtra(PathRecordingActivity.EXTRA_GYROSCOPE, gyroscopeParam);
+            intent.putExtra(GridRecordingActivity.EXTRA_ACCELEROMETER, acceleratorParam);
+            intent.putExtra(GridRecordingActivity.EXTRA_GYROSCOPE, gyroscopeParam);
+            intent.putExtra(GridRecordingActivity.EXTRA_GLOBAL_REFERENCE, globalReferenceParam);
             intent.putExtra(GridRecordingActivity.EXTRA_ROWS, rows);
             intent.putExtra(GridRecordingActivity.EXTRA_COLUMNS, columns);
             startActivity(intent);

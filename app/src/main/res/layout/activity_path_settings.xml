@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <CheckBox
-        android:id="@+id/path_record_global_referencie"
+        android:id="@+id/path_record_global_reference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="true"
