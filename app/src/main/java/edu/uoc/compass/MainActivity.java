@@ -8,15 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import edu.uoc.compass.util.DBHelper;
 import edu.uoc.compass.util.DBSender;
 import edu.uoc.compass.util.Util;
-//TODO: revisar datos guardados campo magnetico
-//TODO: revisar datos guardados acelerometro
-//TODO: revisar datos guardados giroscopio
-//TODO: formato tablet
 
+/**
+ * This activity just contain buttons to connect with the rest of activities
+ */
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +26,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (v.getId()) {
             case R.id.record_path_btn:
+                // Starts Path recording
                 intent = new Intent(this, PathSettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.record_grid_btn:
+                // Starts Grid recording
                 intent = new Intent(this, GridSettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.view_data_btn:
+                // Starts View Data
                 intent = new Intent(this, ViewRecordingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.delete_all_data_btn:
+                // Get database connection
                 final DBHelper dbHelper = new DBHelper(this);
+
+                // Shows confirmation dialog to delete all data
                 final Activity activity = this;
                 Util.showAcceptCancelDialog(
                         this,
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Delete all information in database
                         dbHelper.deleteAllData();
                         Util.showMessage(
                                 activity,
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 },null);
                 break;
             case R.id.send_data_btn:
+                // Send all data in CSV format
                 DBSender.sendData(this);
                 break;
         }
