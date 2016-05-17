@@ -29,6 +29,7 @@
     <string name="path_name">Path Name</string>
     <string name="preview">Preview</string>
     <string name="record_accelerometer">Record accelerometer</string>
+    <string name="record_global_reference">Global reference</string>
     <string name="record_grid">Record grid</string>
     <string name="record_gyroscope">Record gyroscope</string>
     <string name="record_path">Record path</string>

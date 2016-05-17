@@ -29,6 +29,7 @@
     <string name="path_name">Nombre del recorrido</string>
     <string name="preview">Previsualizar</string>
     <string name="record_accelerometer">Grabar acelerómetro</string>
+    <string name="record_global_reference">Referencia global</string>
     <string name="record_grid">Grabar cuadrícula</string>
     <string name="record_gyroscope">Grabar giroscopio</string>
     <string name="record_path">Grabar recorrido</string>

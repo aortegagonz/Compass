@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.Build;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
@@ -16,9 +15,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-
 import edu.uoc.compass.plot.MFLineChart;
 import edu.uoc.compass.util.DBHelper;
 import edu.uoc.compass.util.Util;
@@ -30,6 +26,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
     public static final String  EXTRA_PREVIEW = "preview";
     public static final String  EXTRA_ACCELEROMETER = "accelerometer";
     public static final String  EXTRA_GYROSCOPE = "gyroscope";
+    public static final String  EXTRA_GLOBAL_REFERENCE = "global_reference";
 
     //private boolean isEmulator = "goldfish".equals(Build.HARDWARE);
     //private static float xDebug, yDebug, zDebug;
@@ -37,7 +34,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
     private final float alpha = (float) 0.8;
     private static final int VISIBLE_NUM=50;
 
-    private boolean previewParam, accelerometerParam, gyroscopeParam, globalReferenceParam =true;
+    private boolean previewParam, accelerometerParam, gyroscopeParam, globalReferenceParam;
     private String pathNameParam;
     private float samplingRateParam;
     private long pathId;
@@ -71,6 +68,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
         previewParam = extras.getBoolean(EXTRA_PREVIEW);
         accelerometerParam = extras.getBoolean(EXTRA_ACCELEROMETER);
         gyroscopeParam = extras.getBoolean(EXTRA_GYROSCOPE);
+        globalReferenceParam = extras.getBoolean(EXTRA_GLOBAL_REFERENCE);
 
         sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         magnetometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);

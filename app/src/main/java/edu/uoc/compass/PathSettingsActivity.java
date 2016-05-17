@@ -22,7 +22,7 @@ public class PathSettingsActivity extends AppCompatActivity implements SeekBar.O
     private TextView freqTextView;
     private EditText pathNameEdt;
     private SeekBar freqSeekBar;
-    private CheckBox previewCheck, acceleratorCheck, gyroscopeCheck;
+    private CheckBox previewCheck, acceleratorCheck, gyroscopeCheck, globalReferenceCheck;
     private DBHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class PathSettingsActivity extends AppCompatActivity implements SeekBar.O
         previewCheck = (CheckBox) findViewById(R.id.path_preview);
         acceleratorCheck = (CheckBox) findViewById(R.id.path_record_accelerometer);
         gyroscopeCheck = (CheckBox) findViewById(R.id.path_record_gyroscope);
+        globalReferenceCheck = (CheckBox) findViewById(R.id.path_record_global_referencie);
         Button nextButton = (Button)findViewById(R.id.path_next_btn);
 
         pathNameEdt = (EditText)findViewById(R.id.path_name_edt);
@@ -53,12 +54,14 @@ public class PathSettingsActivity extends AppCompatActivity implements SeekBar.O
 
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         float samplingRate = getSamplingRate(progress);
-        freqTextView.setText(
-                getText(R.string.sampling_rate_dots) +
-                " " +
-                String.format("%.2f", samplingRate) +
-                " " +
-                getText(R.string.hertz_abbreviation));
+        if (freqTextView != null) {
+            freqTextView.setText(
+                    getText(R.string.sampling_rate_dots) +
+                            " " +
+                            String.format("%.2f", samplingRate) +
+                            " " +
+                            getText(R.string.hertz_abbreviation));
+        }
     }
 
     @Override
@@ -81,12 +84,14 @@ public class PathSettingsActivity extends AppCompatActivity implements SeekBar.O
             boolean previewParam = previewCheck.isChecked();
             boolean acceleratorParam = acceleratorCheck.isChecked();
             boolean gyroscopeParam = gyroscopeCheck.isChecked();
+            boolean globalReferenceParam = globalReferenceCheck.isChecked();
             Intent intent = new Intent(this,PathRecordingActivity.class);
             intent.putExtra(PathRecordingActivity.EXTRA_PATH_NAME, pathNameParam);
             intent.putExtra(PathRecordingActivity.EXTRA_SAMPLING_RATE, samplingRateParam);
             intent.putExtra(PathRecordingActivity.EXTRA_PREVIEW, previewParam);
             intent.putExtra(PathRecordingActivity.EXTRA_ACCELEROMETER, acceleratorParam);
             intent.putExtra(PathRecordingActivity.EXTRA_GYROSCOPE, gyroscopeParam);
+            intent.putExtra(PathRecordingActivity.EXTRA_GLOBAL_REFERENCE, globalReferenceParam);
             startActivity(intent);
         }
     }
