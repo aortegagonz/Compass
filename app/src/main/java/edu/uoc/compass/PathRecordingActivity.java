@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -180,6 +181,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
                 // Rotate magnetic field vector
                 float[] R = new float[9];
                 float[] I = new float[9];
+                SensorManager.getRotationMatrix(R, I, gravity, magnetic);
                 float [] A_D = sensorEvent.values.clone();
                 A_W[0] = R[0] * A_D[0] + R[1] * A_D[1] + R[2] * A_D[2];
                 A_W[1] = R[3] * A_D[0] + R[4] * A_D[1] + R[5] * A_D[2];
@@ -189,7 +191,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
 
         // When recording and preview parameter is not activated no data is plotted
         if (previewParam || !recording) {
-            if (sensorEvent.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
+            if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
                 if (globalReferenceParam) {
                     // Plot data transformed to global reference coordinates
                     lineChart.addSensorData(A_W[0], A_W[1], A_W[2]);
@@ -207,7 +209,7 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
             // Save captured data
             dbHelper.insertPathData(
                     pathId,
-                    sensorEvent.sensor.getType(),
+                    sensorType,
                     x,
                     y,
                     z,

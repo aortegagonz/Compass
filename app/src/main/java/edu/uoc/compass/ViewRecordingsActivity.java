@@ -18,6 +18,8 @@ import edu.uoc.compass.util.Util;
 
 /**
  * This activity shows a table with data recorded in the database
+ *
+ * @author Antonio Ortega
  */
 public class ViewRecordingsActivity extends AppCompatActivity implements View.OnClickListener{
     private static final int PADDING = 50;

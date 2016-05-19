@@ -14,6 +14,8 @@ import edu.uoc.compass.util.Util;
 
 /**
  * This activity just contain buttons to connect with the rest of activities
+ *
+ * @author Antonio Ortega
  */
 public class MainActivity extends AppCompatActivity {
     @Override
