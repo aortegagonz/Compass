@@ -67,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.send_data_btn:
                 // Send all data in CSV format
-                DBSender.sendData(this);
+                //DBSender.sendData(this);
+                intent = new Intent(this, SendDataActivity.class);
+                startActivity(intent);
                 break;
         }
     }
