@@ -10,10 +10,21 @@ import android.text.Spanned;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import edu.uoc.compass.R;
+
 /**
- * Created by aortega on 5/5/16.
+ * Library with static functions used in the project
+ *
+ * @author Antonio Ortega
  */
 public class Util {
+    /**
+     * Shows an Information Dialog with a message
+     * @param activity parent activity
+     * @param title dialog title
+     * @param message information to show in dialog
+     * @param onClickListener listener executed when accept button pressed
+     */
     public static void showMessage(final Activity activity, String title, String message, final DialogInterface.OnClickListener onClickListener) {
         new AlertDialog.Builder(activity)
                 .setTitle(title)
@@ -31,6 +42,13 @@ public class Util {
                 .show();
     }
 
+    /**
+     * Shows an Alert Dialog with a message
+     * @param activity parent activity
+     * @param title dialog title
+     * @param message string describing error
+     * @param onClickListener listener executed when accept button pressed
+     */
     public static void showErrorMessage(final Activity activity, String title, String message, final DialogInterface.OnClickListener onClickListener) {
         new AlertDialog.Builder(activity)
                 .setTitle(title)
@@ -47,6 +65,47 @@ public class Util {
                 .show();
     }
 
+    /**
+     * Shows an alert message with two buttons:  "I'm sure" and "retry"
+     * @param activity parent activity
+     * @param title dialog title
+     * @param message string to show
+     * @param onSureListener listener executed when "sure" button pressed
+     * @param onRetryListener listener executed when "retry" button pressed
+     */
+    public static void showSureRetryDialog(final Activity activity, String title, String message, final DialogInterface.OnClickListener onSureListener, final DialogInterface.OnClickListener onRetryListener) {
+        new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(R.string.response_sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (onSureListener != null) {
+                            onSureListener.onClick(dialog, which);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.response_retry, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (onRetryListener!= null) {
+                            onRetryListener.onClick(dialog, which);
+                        }
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * Shows an alert message with two buttons:  "accept" and "cancel"
+     * @param activity parent activity
+     * @param title dialog title
+     * @param message string to show
+     * @param onAcceptListener listener executed when "accept" button pressed
+     * @param onCancelListener listener executed when "cancel" button pressed
+     */
     public static void showAcceptCancelDialog(final Activity activity, String title, String message, final DialogInterface.OnClickListener onAcceptListener, final DialogInterface.OnClickListener onCancelListener) {
         new AlertDialog.Builder(activity)
                 .setTitle(title)
@@ -72,6 +131,13 @@ public class Util {
                 .show();
     }
 
+
+    /**
+     * Set button color depending of its status
+     * @param button button to set color
+     * @param enabledColor color to set when button is enabled
+     * @param disabledColor color to set when button is disabled
+     */
     public static void manageImageButtonColor(ImageButton button, int enabledColor, int disabledColor){
         if (button.isEnabled()) {
             button.setColorFilter(enabledColor);
@@ -80,6 +146,11 @@ public class Util {
         }
     }
 
+    /**
+     * Disables input characters in EditText
+     * @param editText Edit text to process
+     * @param characters String containing characters to disable (eg: ",;")
+     */
     public static void disableCharacters(EditText editText, String characters) {
         editText.setFilters(new InputFilter[]{ new InputFilter() {
             @Override
