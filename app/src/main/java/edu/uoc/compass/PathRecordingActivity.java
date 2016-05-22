@@ -192,13 +192,13 @@ public class PathRecordingActivity extends AppCompatActivity implements SensorEv
         // When recording and preview parameter is not activated no data is plotted
         if (previewParam || !recording) {
             if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
-                if (globalReferenceParam) {
+               // if (globalReferenceParam) {
                     // Plot data transformed to global reference coordinates
-                    lineChart.addSensorData(A_W[0], A_W[1], A_W[2]);
-                } else {
+                    //lineChart.addSensorData(A_W[0], A_W[1], A_W[2]);
+                //} else {
                     // Plot data in device specific coordinates
                     lineChart.addSensorData(x, y, z);
-                }
+                //}
             }
         }
 

@@ -221,13 +221,13 @@ public class GridRecordingActivity extends AppCompatActivity implements SensorEv
         // When recording and preview parameter is not activated no data is plotted
         if (previewParam || !recording) {
             if (sensorType == Sensor.TYPE_MAGNETIC_FIELD) {
-                if (globalReferenceParam) {
+                //if (globalReferenceParam) {
                     // Plot data transformed to global reference coordinates
-                    barChart.addSensorData(A_W[0], A_W[1], A_W[2]);
-                } else {
+                    //barChart.addSensorData(A_W[0], A_W[1], A_W[2]);
+                //} else {
                     // Plot data in device specific coordinates
                     barChart.addSensorData(x, y, z);
-                }
+                //}
             }
         }
 
