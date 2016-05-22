@@ -17,6 +17,8 @@
     <string name="error_path_exits">Path name already exists</string>
     <string name="error_rows_empty">Number of rows is empty</string>
     <string name="error_saving_cvs">Unable to write CSV file</string>
+    <string name="error_write_permissions">Application has no permission to write in SD card, unable to send data</string>
+    <string name="explain_write_permissions">This application needs write access to SD card in order to write temporally CVS file. Without this permission data will not be exported. Are you sure you want to deny dis permission? </string>
     <string name="grid">grid</string>
     <string name="grid_name">Grid Name</string>
     <string name="hertz_abbreviation">Hz</string>
@@ -33,6 +35,8 @@
     <string name="record_grid">Record grid</string>
     <string name="record_gyroscope">Record gyroscope</string>
     <string name="record_path">Record path</string>
+    <string name="response_retry">TRY AGAIN</string>
+    <string name="response_sure">I\'M SURE</string>
     <string name="row_dots">Row:</string>
     <string name="rows_dots">Rows:</string>
     <string name="samples_dots">Samples:</string>
@@ -40,6 +44,7 @@
     <string name="sampling_rate_dots">Sampling rate:</string>
     <string name="seconds_abbreviation">s</string>
     <string name="send_data">Send data</string>
+    <string name="send_wait">Please, wait until all data is sent...</string>
     <string name="time_dots">Time:</string>
     <string name="title_activity_grid_recording">Grid Recording</string>
     <string name="title_activity_grid_settings">Grid Settings</string>

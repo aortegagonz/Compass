@@ -17,6 +17,8 @@
     <string name="error_path_exits">El nombre del recorrido ya existe</string>
     <string name="error_rows_empty">El número de filas está vacío</string>
     <string name="error_saving_cvs">No se puede escribir el fichero CSV</string>
+    <string name="error_write_permissions">La aplicación no tiene permisos para esclibir en la tarjeta SD, no se pueden enviar los datos </string>
+    <string name="explain_write_permissions">Esta aplicación necesita permiso de escritura en la tarjeta SD para escribir el fichero CSV a exportar. Sin este permiso no se podrán exportar los datos. ¿Está seguro de que quiere denegar el permiso? </string>
     <string name="grid">cuadrícula</string>
     <string name="grid_name">Nombre de la cuadrícula</string>
     <string name="hertz_abbreviation">Hz</string>
@@ -33,6 +35,8 @@
     <string name="record_grid">Grabar cuadrícula</string>
     <string name="record_gyroscope">Grabar giroscopio</string>
     <string name="record_path">Grabar recorrido</string>
+    <string name="response_retry">INTENTAR DE NUEVO</string>
+    <string name="response_sure">ESTOY SEGURO</string>
     <string name="row_dots">Fila:</string>
     <string name="rows_dots">Filas:</string>
     <string name="samples_dots">Muestras:</string>
@@ -40,6 +44,7 @@
     <string name="sampling_rate_dots">Frec. de muestreo:</string>
     <string name="seconds_abbreviation">s</string>
     <string name="send_data">Enviar datos</string>
+    <string name="send_wait">Por favor, espera mientras se envían los datos ...</string>
     <string name="time_dots">Tiempo:</string>
     <string name="title_activity_grid_recording">Grabación de cuadrícula</string>
     <string name="title_activity_grid_settings">Configuración de cuadrícula</string>
