@@ -90,19 +90,20 @@
         android:id="@+id/grid_record_global_reference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
+        android:checked="true"
         android:text="@string/record_global_reference"/>
     <CheckBox
         android:id="@+id/grid_record_accelerometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checked="false"
+        android:checked="true"
         android:text="@string/record_accelerometer"/>
 
     <CheckBox
         android:id="@+id/grid_record_gyroscope"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checked="true"
         android:text="@string/record_gyroscope"/>
 
     <CheckBox
